@@ -190,24 +190,23 @@
     font-size: 9px;
     letter-spacing: 0.3px;
     gap: 6px;
+    line-height: 1.5;
+  }
+
+  .caption span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .caption span:last-child {
+    flex-shrink: 0;
+    white-space:nowrap;
   }
 
   .about {
     padding: 35px 5% 50px;
   }
 }
-
-
-  /* Occasional featured image on mobile */
-  .photo:nth-child(7n + 1) {
-    grid-column: span 2;
-    grid-row: span 14;
-  }
-
-  .photo:nth-child(6n) {
-    grid-column: span 2;
-    grid-row: span 14;
-  }
 
   .caption {
     font-size: 9px;
@@ -228,7 +227,7 @@
     <a href="#"><strong>TACOSTRASH</strong></a>
     <nav>
       <a href="#work">WORK</a>
-      <a href="https://www.instagram.com/tacostrash/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+      <a href="https://www.instagram.com/tacostrash/" target="_blank" rel="noopener noreferrer">CONTACT</a>
     </nav>
   </header>
 
