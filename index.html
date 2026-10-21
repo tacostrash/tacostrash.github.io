@@ -218,7 +218,70 @@
     padding: 35px 5% 50px;
   }
 }
+    
+  /* CLICK-TO-FOCUS LIGHTBOX */
+.photo img {
+  cursor: zoom-in;
+}
 
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.96);
+  align-items: center;
+  justify-content: center;
+  padding: 50px 24px;
+  cursor: zoom-out;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: default;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  color: white;
+  font-size: 32px;
+  font-weight: 300;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .lightbox {
+    padding: 40px 12px;
+  }
+
+  .lightbox img {
+    max-height: 80vh;
+  }
+
+  .lightbox-close {
+    top: 10px;
+    right: 14px;
+  }
+}
+    
   </style>
 </head>
 
@@ -368,6 +431,60 @@
       </p>
     </section>
   </main>
+
+  <div
+  class="lightbox"
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Expanded photograph"
+>
+  <button
+    class="lightbox-close"
+    id="lightboxClose"
+    aria-label="Close photograph"
+  >&times;</button>
+
+  <img id="lightboxImage" src="" alt="">
+</div>
+  <script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const closeButton = document.getElementById('lightboxClose');
+  let previousFocus = null;
+
+  document.querySelectorAll('.photo img').forEach((img) => {
+    img.addEventListener('click', () => {
+      previousFocus = img;
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+
+      lightbox.classList.add('active');
+      document.body.classList.add('lightbox-open');
+      closeButton.focus();
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.classList.remove('lightbox-open');
+    lightboxImage.src = '';
+
+    if (previousFocus) previousFocus.focus();
+  }
+
+  closeButton.addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+</script>
 
   <footer>© 2026 TACOSTRASH · PHOTOGRAPHY</footer>
 </body>
