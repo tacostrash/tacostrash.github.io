@@ -4,11 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Portraits, live music, and the moments in between. A visual photography archive by TACOSTRASH.">
   <title>tacostrash — Photography</title>
+
   <style>
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 20px;
+    }
 
     body {
       margin: 0;
@@ -17,18 +23,46 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    a { color: inherit; text-decoration: none; }
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    .photo img:focus-visible {
+      outline: 2px solid #f5f3ef;
+      outline-offset: 4px;
+    }
 
     header {
       padding: 24px 6%;
       display: flex;
+      align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #292929;
       font-size: 11px;
       letter-spacing: 2px;
     }
 
-    nav { display: flex; gap: 22px; }
+    nav {
+      display: flex;
+      gap: 22px;
+    }
+
+    nav a,
+    header > a {
+      transition: opacity 180ms ease;
+    }
+
+    nav a:hover,
+    header > a:hover {
+      opacity: 0.65;
+    }
 
     .hero {
       padding: 100px 6% 55px;
@@ -43,7 +77,7 @@
 
     h1 {
       font-size: clamp(70px, 14vw, 170px);
-      line-height: .82;
+      line-height: 0.82;
       letter-spacing: -9px;
       font-weight: 500;
       margin: 35px 0;
@@ -56,66 +90,60 @@
       font-size: 14px;
     }
 
+    /* EDITORIAL MASONRY GALLERY */
+    .gallery {
+      width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 30px 6% 90px;
+      column-count: 3;
+      column-gap: 22px;
+      column-fill: balance;
+    }
 
+    .photo {
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+      margin: 0 0 30px;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+    }
 
-/* EDITORIAL PHOTO GALLERY */
-.gallery {
-  width: 100%;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 30px 6% 90px;
+    .photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background: #090909;
+      cursor: zoom-in;
+    }
 
-  /* Masonry layout: staggered columns with natural image heights */
-  column-count: 3;
-  column-gap: 22px;
-  column-fill: balance;
-}
+    .caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+      padding: 9px 0 0;
+      color: #999;
+      font-size: 10px;
+      letter-spacing: 1px;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
 
-.photo {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  margin: 0 0 30px;
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-}
+    .caption span:first-child {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
 
-.photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  background: #090909;
-  cursor: pointer;
-}
+    .caption span:last-child {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
 
-.caption {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-
-  width: 100%;
-  padding: 9px 0 0;
-  color: #999;
-  font-size: 10px;
-  letter-spacing: 1px;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-
-.caption span:first-child {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.caption span:last-child {
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-
-
+    /* ABOUT */
     .about {
       padding: 45px 6% 70px;
       border-top: 1px solid #292929;
@@ -142,145 +170,147 @@
       letter-spacing: 1px;
     }
 
-    
+    /* TABLETS */
+    @media (min-width: 601px) and (max-width: 900px) {
+      .gallery {
+        column-count: 2;
+        column-gap: 18px;
+        padding-left: 4%;
+        padding-right: 4%;
+      }
 
-/* TABLETS */
-@media (min-width: 601px) and (max-width: 900px) {
-  .gallery {
-    column-count: 2;
-    column-gap: 18px;
-    padding-left: 4%;
-    padding-right: 4%;
-  }
+      .photo {
+        margin-bottom: 24px;
+      }
+    }
 
-  .photo {
-    margin-bottom: 24px;
-  }
-}
+    /* MOBILE */
+    @media (max-width: 600px) {
+      header {
+        padding: 20px 5%;
+      }
 
-/* MOBILE */
-@media (max-width: 600px) {
-  h1 {
-    letter-spacing: -5px;
-    font-size: clamp(64px, 16vw, 100px);
-  }
+      nav {
+        gap: 12px;
+      }
 
-  .hero {
-    padding: 75px 5% 35px;
-  }
+      .hero {
+        padding: 75px 5% 35px;
+      }
 
-  header {
-    padding: 20px 5%;
-  }
+      h1 {
+        font-size: clamp(64px, 16vw, 100px);
+        letter-spacing: -5px;
+      }
 
-  nav {
-    gap: 12px;
-  }
+      .gallery {
+        column-count: 2;
+        column-gap: 12px;
+        padding: 20px 5% 60px;
+      }
 
-  .gallery {
-    column-count: 2;
-    column-gap: 12px;
-    padding: 20px 5% 60px;
-  }
+      .photo {
+        margin-bottom: 22px;
+      }
 
-  .photo {
-    margin-bottom: 22px;
-  }
+      .caption {
+        padding-top: 7px;
+        font-size: 9px;
+        letter-spacing: 0.3px;
+        gap: 6px;
+        line-height: 1.5;
+      }
 
-  .caption {
-    padding-top: 7px;
-    font-size: 9px;
-    letter-spacing: 0.3px;
-    gap: 6px;
-    line-height: 1.5;
-  }
+      .about {
+        padding: 35px 5% 50px;
+      }
+    }
 
-  .caption span:last-child {
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
+    /* LIGHTBOX — ALL SCREEN SIZES */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.96);
+      align-items: center;
+      justify-content: center;
+      padding: 50px 24px;
+      cursor: zoom-out;
+    }
 
-  .caption span:last-child {
-    flex-shrink: 0;
-    white-space:nowrap;
-  }
+    .lightbox.active {
+      display: flex;
+    }
 
-  .about {
-    padding: 35px 5% 50px;
-  }
-    
-  /* CLICK-TO-FOCUS LIGHTBOX */
-.photo img {
-  cursor: zoom-in;
-}
+    .lightbox img {
+      display: block;
+      max-width: 100%;
+      max-height: 85vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      cursor: default;
+    }
 
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0, 0, 0, 0.96);
-  align-items: center;
-  justify-content: center;
-  padding: 50px 24px;
-  cursor: zoom-out;
-}
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      color: white;
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+    }
 
-.lightbox.active {
-  display: flex;
-}
+    /* MOBILE LIGHTBOX */
+    @media (max-width: 600px) {
+      .lightbox {
+        padding: 40px 12px;
+      }
 
-.lightbox img {
-  display: block;
-  max-width: 100%;
-  max-height: 85vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  cursor: default;
-}
+      .lightbox img {
+        max-height: 80vh;
+      }
 
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 28px;
-  color: white;
-  font-size: 32px;
-  font-weight: 300;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 8px;
-}
+      .lightbox-close {
+        top: 10px;
+        right: 14px;
+      }
+    }
 
-body.lightbox-open {
-  overflow: hidden;
-}
+    /* REDUCED MOTION ACCESSIBILITY */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
 
-@media (max-width: 600px) {
-  .lightbox {
-    padding: 40px 12px;
-  }
-
-  .lightbox img {
-    max-height: 80vh;
-  }
-
-  .lightbox-close {
-    top: 10px;
-    right: 14px;
-  }
-}
-    
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <a href="#"><strong>TACOSTRASH</strong></a>
-    <nav>
+    <a href="#" aria-label="TACOSTRASH home">
+      <strong>TACOSTRASH</strong>
+    </a>
+
+    <nav aria-label="Main navigation">
       <a href="#work">WORK</a>
-      <a href="https://www.instagram.com/tacostrash/" target="_blank" rel="noopener noreferrer">CONTACT</a>
+      <a
+        href="https://www.instagram.com/tacostrash/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >CONTACT</a>
     </nav>
   </header>
 
@@ -294,187 +324,229 @@ body.lightbox-open {
       </p>
     </section>
 
-<section id="work">
-  <div class="gallery">
-    <div class="photo">
-      <img src="images/0.jpg" alt="Featured photograph">
-      <div class="caption"><span>Ayo and Teo</span><span>01</span></div>
-    </div>
+    <section id="work" aria-label="Photography portfolio">
+      <div class="gallery">
 
-    <div class="photo">
-      <img src="images/1.jpg" alt="Portrait photography">
-      <div class="caption"><span>Lancey Foux</span><span>02</span></div>
-    </div>
+        <!-- ORIGINAL PHOTOGRAPHS -->
+        <div class="photo">
+          <img src="images/0.jpg" alt="Ayo and Teo" fetchpriority="high" decoding="async">
+          <div class="caption"><span>Ayo and Teo</span><span>01</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/2.jpg" alt="Lifestyle photography">
-      <div class="caption"><span>Metro Boomin and Gunnerstahl</span><span>03</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/1.jpg" alt="Lancey Foux" fetchpriority="high" decoding="async">
+          <div class="caption"><span>Lancey Foux</span><span>02</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/3.jpg" alt="Lifestyle photograph">
-      <div class="caption"><span>Chris Phan</span><span>04</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/2.jpg" alt="Metro Boomin and Gunnerstahl" loading="lazy" decoding="async">
+          <div class="caption"><span>Metro Boomin and Gunnerstahl</span><span>03</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/4.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Halloween Night 2023</span><span>05</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/3.jpg" alt="Chris Phan" loading="lazy" decoding="async">
+          <div class="caption"><span>Chris Phan</span><span>04</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/5.jpg" alt="Photography portfolio">
-      <div class="caption"><span>JoyDivizn and Chris Skylark </span><span>06</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/4.jpg" alt="Halloween Night 2023" loading="lazy" decoding="async">
+          <div class="caption"><span>Halloween Night 2023</span><span>05</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/6.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Metro Boomin</span><span>07</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/5.jpg" alt="JoyDivizn and Chris Skylark" loading="lazy" decoding="async">
+          <div class="caption"><span>JoyDivizn and Chris Skylark</span><span>06</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/7.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Lifestyle</span><span>08</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/6.jpg" alt="Metro Boomin" loading="lazy" decoding="async">
+          <div class="caption"><span>Metro Boomin</span><span>07</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/8.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Veeze</span><span>09</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/7.jpg" alt="Lifestyle photography" loading="lazy" decoding="async">
+          <div class="caption"><span>Lifestyle</span><span>08</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/9.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Lancey Foux</span><span>10</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/8.jpg" alt="Veeze" loading="lazy" decoding="async">
+          <div class="caption"><span>Veeze</span><span>09</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/10.jpg" alt="Photography portfolio">
-      <div class="caption"><span>LA</span><span>11</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/9.jpg" alt="Lancey Foux" loading="lazy" decoding="async">
+          <div class="caption"><span>Lancey Foux</span><span>10</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/11.jpg" alt="Photography portfolio">
-      <div class="caption"><span>BabyFace Ray</span><span>12</span></div>
-    </div>
+        <div class="photo">
+          <img src="images/10.jpg" alt="Los Angeles" loading="lazy" decoding="async">
+          <div class="caption"><span>LA</span><span>11</span></div>
+        </div>
 
-    <div class="photo">
-      <img src="images/12.jpg" alt="Photography portfolio">
-      <div class="caption"><span>Halloween Night 2023</span><span>13</span></div>
-    </div>
-    <div class="photo"><img src="images/037918001383-R1-E005.jpg" alt="Photography"><div class="caption"><span>Diorvsyou</span><span>14</span></div></div>
-    <div class="photo"><img src="images/037918001383-R1-E023.jpg" alt="Photography"><div class="caption"><span>Etho</span><span>15</span></div></div>
-    <div class="photo"><img src="images/037918001383-R1-E031.jpg" alt="Photography"><div class="caption"><span>Swegg</span><span>16</span></div></div>
-    <div class="photo"><img src="images/037918001383-R1-E032.jpg" alt="Photography"><div class="caption"><span>Halloween Night 2024</span><span>17</span></div></div>
-    <div class="photo"><img src="images/039477008370-R1-E017.jpg" alt="Photography"><div class="caption"><span>Tana</span><span>18</span></div></div>
-    <div class="photo"><img src="images/218495007257-R1-013.jpg" alt="Photography"><div class="caption"><span>Ntnorex</span><span>19</span></div></div>
-    <div class="photo"><img src="images/219367006247-R1-E030.jpg" alt="Photography"><div class="caption"><span>BKtheRula</span><span>20</span></div></div>
-    <div class="photo"><img src="images/219931004596-R1-E018.jpg" alt="Photography"><div class="caption"><span>CULTEXAVIER</span><span>21</span></div></div>
-    <div class="photo"><img src="images/219931004596-R1-E019.jpg" alt="Photography"><div class="caption"><span>Thirteen Degrees</span><span>22</span></div></div>
-    <div class="photo"><img src="images/219931004596-R1-E022.jpg" alt="Photography"><div class="caption"><span>Lil2posh</span><span>23</span></div></div>
-    <div class="photo"><img src="images/219931004596-R1-E028.jpg" alt="Photography"><div class="caption"><span>Money Man</span><span>24</span></div></div>
-    <div class="photo"><img src="images/221421003797-R1-E031.jpg" alt="Photography"><div class="caption"><span>7oliver1</span><span>25</span></div></div>
-    <div class="photo"><img src="images/297314005537-R1-026.jpg" alt="Photography"><div class="caption"><span>Isa</span><span>26</span></div></div>
+        <div class="photo">
+          <img src="images/11.jpg" alt="BabyFace Ray" loading="lazy" decoding="async">
+          <div class="caption"><span>BabyFace Ray</span><span>12</span></div>
+        </div>
 
-    <div class="photo"><img src="images/318267002672-R1-060-28A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>27</span></div></div>
-    <div class="photo"><img src="images/318267002672-R1-064-30A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>28</span></div></div>
-    <div class="photo"><img src="images/318267002672-R1-076-36A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>29</span></div></div>
-    <div class="photo"><img src="images/318267002673-R1-058-27A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>30</span></div></div>
-    <div class="photo"><img src="images/318267002673-R1-070-33A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>31</span></div></div>
-    <div class="photo"><img src="images/318267002673-R1-072-34A.jpg" alt="Photography"><div class="caption"><span>Alexa's Graduation</span><span>32</span></div></div>
-    <div class="photo"><img src="images/318973003506-R1-048-22A.jpg" alt="Photography"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>33</span></div></div>
-    <div class="photo"><img src="images/318973003506-R1-056-26A.jpg" alt="Photography"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>34</span></div></div>
-    <div class="photo"><img src="images/318973003506-R1-064-30A.jpg" alt="Photography"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>35</span></div></div>
-    <div class="photo"><img src="images/318973003506-R1-070-33A.jpg" alt="Photography"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>36</span></div></div>
-    <div class="photo"><img src="images/349628001757-R1-014-5A.jpg" alt="Photography"><div class="caption"><span>Lerenaisssance</span><span>37</span></div></div>
-    <div class="photo"><img src="images/349628001757-R1-020-8A.jpg" alt="Photography"><div class="caption"><span>SaintRamona</span><span>38</span></div></div>
-    <div class="photo"><img src="images/349628001757-R1-050-23A.jpg" alt="Photography"><div class="caption"><span>GSU</span><span>39</span></div></div>
-    <div class="photo"><img src="images/349628001757-R1-052-24A.jpg" alt="Photography"><div class="caption"><span>GSU</span><span>40</span></div></div>
+        <div class="photo">
+          <img src="images/12.jpg" alt="Halloween Night 2023" loading="lazy" decoding="async">
+          <div class="caption"><span>Halloween Night 2023</span><span>13</span></div>
+        </div>
 
-    <!-- FUJIFILM PHOTOS -->
-    <div class="photo"><img src="images/DSCF0181.JPG" alt="Photography"><div class="caption"><span>Possums Band</span><span>41</span></div></div>
-    <div class="photo"><img src="images/DSCF0187.JPG" alt="Photography"><div class="caption"><span>Possums Band</span><span>42</span></div></div>
-    <div class="photo"><img src="images/DSCF0188.JPG" alt="Photography"><div class="caption"><span>YesDear Band</span><span>43</span></div></div>
-    <div class="photo"><img src="images/DSCF0488.JPG" alt="Photography"><div class="caption"><span>South Korea</span><span>44</span></div></div>
-    <div class="photo"><img src="images/DSCF1765.JPG" alt="Photography"><div class="caption"><span>Mexico World Cup</span><span>45</span></div></div>
-    <div class="photo"><img src="images/DSCF1782.JPG" alt="Photography"><div class="caption"><span>JoelSw4gger</span><span>46</span></div></div>
-    <div class="photo"><img src="images/DSCF1885.JPG" alt="Photography"><div class="caption"><span>Mexico World Cup</span><span>47</span></div></div>
-    <div class="photo"><img src="images/DSCF2086.JPG" alt="Photography"><div class="caption"><span>Mexico World Cup</span><span>48</span></div></div>
-    <div class="photo"><img src="images/DSCF2087.JPG" alt="Photography"><div class="caption"><span>Mexico World Cup</span><span>49</span></div></div>
-    <div class="photo"><img src="images/DSCF2383.JPG" alt="Photography"><div class="caption"><span>Abirsrealm</span><span>50</span></div></div>
-    <div class="photo"><img src="images/DSCF2485.JPG" alt="Photography"><div class="caption"><span>Street Photography</span><span>51</span></div></div>
-    <div class="photo"><img src="images/DSCF2790.JPG" alt="Photography"><div class="caption"><span>Pisces Backyard</span><span>52</span></div></div>
+        <!-- ADDITIONAL PORTRAITS -->
+        <div class="photo"><img src="images/037918001383-R1-E005.jpg" alt="Diorvsyou" loading="lazy" decoding="async"><div class="caption"><span>Diorvsyou</span><span>14</span></div></div>
+        <div class="photo"><img src="images/037918001383-R1-E023.jpg" alt="Etho" loading="lazy" decoding="async"><div class="caption"><span>Etho</span><span>15</span></div></div>
+        <div class="photo"><img src="images/037918001383-R1-E031.jpg" alt="Swegg" loading="lazy" decoding="async"><div class="caption"><span>Swegg</span><span>16</span></div></div>
+        <div class="photo"><img src="images/037918001383-R1-E032.jpg" alt="Halloween Night 2024" loading="lazy" decoding="async"><div class="caption"><span>Halloween Night 2024</span><span>17</span></div></div>
+        <div class="photo"><img src="images/039477008370-R1-E017.jpg" alt="Tana" loading="lazy" decoding="async"><div class="caption"><span>Tana</span><span>18</span></div></div>
+        <div class="photo"><img src="images/218495007257-R1-013.jpg" alt="Ntnorex" loading="lazy" decoding="async"><div class="caption"><span>Ntnorex</span><span>19</span></div></div>
+        <div class="photo"><img src="images/219367006247-R1-E030.jpg" alt="BKtheRula" loading="lazy" decoding="async"><div class="caption"><span>BKtheRula</span><span>20</span></div></div>
+        <div class="photo"><img src="images/219931004596-R1-E018.jpg" alt="CULTEXAVIER" loading="lazy" decoding="async"><div class="caption"><span>CULTEXAVIER</span><span>21</span></div></div>
+        <div class="photo"><img src="images/219931004596-R1-E019.jpg" alt="Thirteen Degrees" loading="lazy" decoding="async"><div class="caption"><span>Thirteen Degrees</span><span>22</span></div></div>
+        <div class="photo"><img src="images/219931004596-R1-E022.jpg" alt="Lil2posh" loading="lazy" decoding="async"><div class="caption"><span>Lil2posh</span><span>23</span></div></div>
+        <div class="photo"><img src="images/219931004596-R1-E028.jpg" alt="Money Man" loading="lazy" decoding="async"><div class="caption"><span>Money Man</span><span>24</span></div></div>
+        <div class="photo"><img src="images/221421003797-R1-E031.jpg" alt="7oliver1" loading="lazy" decoding="async"><div class="caption"><span>7oliver1</span><span>25</span></div></div>
+        <div class="photo"><img src="images/297314005537-R1-026.jpg" alt="Isa" loading="lazy" decoding="async"><div class="caption"><span>Isa</span><span>26</span></div></div>
 
-    <!-- PHONE PHOTOS -->
-    <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2025%2037%20PM.jpg" alt="Photography"><div class="caption"><span>Luvjarti</span><span>53</span></div></div>
-    <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2040%2042%20PM.jpg" alt="Photography"><div class="caption"><span>Akisgallery</span><span>54</span></div></div>
-    <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2057%2043%20PM.jpg" alt="Photography"><div class="caption"><span>Man w Cig</span><span>55</span></div></div>
-    <div class="photo"><img src="images/Photo%20Jan%2001%202026,%2012%2057%2004%20AM.jpg" alt="Photography"><div class="caption"><span>Luvjarti & ETHO</span><span>56</span></div></div>
-    <div class="photo"><img src="images/Photo%20Jul%2031%202026,%2011%2021%2023%20PM.jpg" alt="Photography"><div class="caption"><span>Lifeofharsukh</span><span>57</span></div></div>
-    <div class="photo"><img src="images/Photo%20Jul%2031%202026,%2011%2034%2003%20PM.jpg" alt="Photography"><div class="caption"><span>Pisces</span><span>58</span></div></div>
-    <div class="photo"><img src="images/Photo%20Jul%2031%202026,%209%2056%2030%20PM.jpg" alt="Photography"><div class="caption"><span>Arthi</span><span>59</span></div></div>
-  </div>
-</section>
+        <!-- GRADUATION AND LIVE MUSIC -->
+        <div class="photo"><img src="images/318267002672-R1-060-28A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>27</span></div></div>
+        <div class="photo"><img src="images/318267002672-R1-064-30A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>28</span></div></div>
+        <div class="photo"><img src="images/318267002672-R1-076-36A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>29</span></div></div>
+        <div class="photo"><img src="images/318267002673-R1-058-27A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>30</span></div></div>
+        <div class="photo"><img src="images/318267002673-R1-070-33A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>31</span></div></div>
+        <div class="photo"><img src="images/318267002673-R1-072-34A.jpg" alt="Alexa's Graduation" loading="lazy" decoding="async"><div class="caption"><span>Alexa's Graduation</span><span>32</span></div></div>
+        <div class="photo"><img src="images/318973003506-R1-048-22A.jpg" alt="Livingston at Center Stage Theatre" loading="lazy" decoding="async"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>33</span></div></div>
+        <div class="photo"><img src="images/318973003506-R1-056-26A.jpg" alt="Livingston at Center Stage Theatre" loading="lazy" decoding="async"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>34</span></div></div>
+        <div class="photo"><img src="images/318973003506-R1-064-30A.jpg" alt="Livingston at Center Stage Theatre" loading="lazy" decoding="async"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>35</span></div></div>
+        <div class="photo"><img src="images/318973003506-R1-070-33A.jpg" alt="Livingston at Center Stage Theatre" loading="lazy" decoding="async"><div class="caption"><span>Livingston @ Center Stage Theatre</span><span>36</span></div></div>
+        <div class="photo"><img src="images/349628001757-R1-014-5A.jpg" alt="Lerenaisssance" loading="lazy" decoding="async"><div class="caption"><span>Lerenaisssance</span><span>37</span></div></div>
+        <div class="photo"><img src="images/349628001757-R1-020-8A.jpg" alt="SaintRamona" loading="lazy" decoding="async"><div class="caption"><span>SaintRamona</span><span>38</span></div></div>
+        <div class="photo"><img src="images/349628001757-R1-050-23A.jpg" alt="GSU" loading="lazy" decoding="async"><div class="caption"><span>GSU</span><span>39</span></div></div>
+        <div class="photo"><img src="images/349628001757-R1-052-24A.jpg" alt="GSU" loading="lazy" decoding="async"><div class="caption"><span>GSU</span><span>40</span></div></div>
+
+        <!-- FUJIFILM PHOTOS -->
+        <div class="photo"><img src="images/DSCF0181.JPG" alt="Possums Band" loading="lazy" decoding="async"><div class="caption"><span>Possums Band</span><span>41</span></div></div>
+        <div class="photo"><img src="images/DSCF0187.JPG" alt="Possums Band" loading="lazy" decoding="async"><div class="caption"><span>Possums Band</span><span>42</span></div></div>
+        <div class="photo"><img src="images/DSCF0188.JPG" alt="YesDear Band" loading="lazy" decoding="async"><div class="caption"><span>YesDear Band</span><span>43</span></div></div>
+        <div class="photo"><img src="images/DSCF0488.JPG" alt="South Korea" loading="lazy" decoding="async"><div class="caption"><span>South Korea</span><span>44</span></div></div>
+        <div class="photo"><img src="images/DSCF1765.JPG" alt="Mexico World Cup" loading="lazy" decoding="async"><div class="caption"><span>Mexico World Cup</span><span>45</span></div></div>
+        <div class="photo"><img src="images/DSCF1782.JPG" alt="JoelSw4gger" loading="lazy" decoding="async"><div class="caption"><span>JoelSw4gger</span><span>46</span></div></div>
+        <div class="photo"><img src="images/DSCF1885.JPG" alt="Mexico World Cup" loading="lazy" decoding="async"><div class="caption"><span>Mexico World Cup</span><span>47</span></div></div>
+        <div class="photo"><img src="images/DSCF2086.JPG" alt="Mexico World Cup" loading="lazy" decoding="async"><div class="caption"><span>Mexico World Cup</span><span>48</span></div></div>
+        <div class="photo"><img src="images/DSCF2087.JPG" alt="Mexico World Cup" loading="lazy" decoding="async"><div class="caption"><span>Mexico World Cup</span><span>49</span></div></div>
+        <div class="photo"><img src="images/DSCF2383.JPG" alt="Abirsrealm" loading="lazy" decoding="async"><div class="caption"><span>Abirsrealm</span><span>50</span></div></div>
+        <div class="photo"><img src="images/DSCF2485.JPG" alt="Street photography" loading="lazy" decoding="async"><div class="caption"><span>Street Photography</span><span>51</span></div></div>
+        <div class="photo"><img src="images/DSCF2790.JPG" alt="Pisces Backyard" loading="lazy" decoding="async"><div class="caption"><span>Pisces Backyard</span><span>52</span></div></div>
+
+        <!-- PHONE PHOTOS -->
+        <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2025%2037%20PM.jpg" alt="Luvjarti" loading="lazy" decoding="async"><div class="caption"><span>Luvjarti</span><span>53</span></div></div>
+        <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2040%2042%20PM.jpg" alt="Akisgallery" loading="lazy" decoding="async"><div class="caption"><span>Akisgallery</span><span>54</span></div></div>
+        <div class="photo"><img src="images/Photo%20Dec%2031%202025,%2011%2057%2043%20PM.jpg" alt="Man w Cig" loading="lazy" decoding="async"><div class="caption"><span>Man w Cig</span><span>55</span></div></div>
+        <div class="photo"><img src="images/Photo%20Jan%2001%202026,%2012%2057%2004%20AM.jpg" alt="Luvjarti and ETHO" loading="lazy" decoding="async"><div class="caption"><span>Luvjarti &amp; ETHO</span><span>56</span></div></div>
+        <div class="photo"><img src="images/Photo%20Jul%2031%202026,%2011%2021%2023%20PM.jpg" alt="Lifeofharsukh" loading="lazy" decoding="async"><div class="caption"><span>Lifeofharsukh</span><span>57</span></div></div>
+        <div class="photo"><img src="images/Photo%20Jul%2031%202026,%2011%2034%2003%20PM.jpg" alt="Pisces" loading="lazy" decoding="async"><div class="caption"><span>Pisces</span><span>58</span></div></div>
+        <div class="photo"><img src="images/Photo%20Jul%2031%202026,%209%2056%2030%20PM.jpg" alt="Arthi" loading="lazy" decoding="async"><div class="caption"><span>Arthi</span><span>59</span></div></div>
+
+      </div>
+    </section>
 
     <section class="about" id="about">
       <h2>Behind the lens</h2>
-      <p>
-        Real people. Unposed moments.
-      </p>
+      <p>Real people. Unposed moments.</p>
     </section>
   </main>
 
+  <!-- IMAGE LIGHTBOX -->
   <div
-  class="lightbox"
-  id="lightbox"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Expanded photograph"
->
-  <button
-    class="lightbox-close"
-    id="lightboxClose"
-    aria-label="Close photograph"
-  >&times;</button>
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Expanded photograph"
+    aria-hidden="true"
+  >
+    <button
+      class="lightbox-close"
+      id="lightboxClose"
+      type="button"
+      aria-label="Close photograph"
+    >&times;</button>
 
-  <img id="lightboxImage" src="" alt="">
-</div>
+    <img id="lightboxImage" src="" alt="">
+  </div>
+
   <script>
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightboxImage');
-  const closeButton = document.getElementById('lightboxClose');
-  let previousFocus = null;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeButton = document.getElementById('lightboxClose');
 
-  document.querySelectorAll('.photo img').forEach((img) => {
-    img.addEventListener('click', () => {
+    let previousFocus = null;
+
+    function openLightbox(img) {
       previousFocus = img;
-      lightboxImage.src = img.src;
+
+      lightboxImage.src = img.currentSrc || img.src;
       lightboxImage.alt = img.alt;
 
       lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
       document.body.classList.add('lightbox-open');
+
       closeButton.focus();
-    });
-  });
-
-  function closeLightbox() {
-    lightbox.classList.remove('active');
-    document.body.classList.remove('lightbox-open');
-    lightboxImage.src = '';
-
-    if (previousFocus) previousFocus.focus();
-  }
-
-  closeButton.addEventListener('click', closeLightbox);
-
-  lightbox.addEventListener('click', (event) => {
-    if (event.target === lightbox) closeLightbox();
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && lightbox.classList.contains('active')) {
-      closeLightbox();
     }
-  });
-</script>
+
+    function closeLightbox() {
+      if (!lightbox.classList.contains('active')) return;
+
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+
+      lightboxImage.src = '';
+
+      if (previousFocus) {
+        previousFocus.focus();
+      }
+    }
+
+    document.querySelectorAll('.photo img').forEach((img) => {
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+
+      img.setAttribute(
+        'aria-label',
+        `Enlarge photograph: ${img.alt || 'Untitled photograph'}`
+      );
+
+      img.addEventListener('click', () => {
+        openLightbox(img);
+      });
+
+      img.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLightbox(img);
+        }
+      });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (
+        event.key === 'Escape' &&
+        lightbox.classList.contains('active')
+      ) {
+        closeLightbox();
+      }
+    });
+  </script>
 
   <footer>© 2026 TACOSTRASH · PHOTOGRAPHY</footer>
 </body>
