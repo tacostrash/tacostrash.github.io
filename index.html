@@ -57,6 +57,7 @@
     }
 
 
+
 /* EDITORIAL PHOTO GALLERY */
 .gallery {
   width: 100%;
@@ -64,83 +65,53 @@
   margin: 0 auto;
   padding: 30px 6% 90px;
 
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-flow: dense;
-  grid-auto-rows: 35px;
-  gap: 14px 20px;
+  /* Masonry layout: staggered columns with natural image heights */
+  column-count: 3;
+  column-gap: 22px;
 }
 
 .photo {
-  min-width: 0;
-  grid-column: span 6;
-  grid-row: span 12;
-
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  margin: 0 0 30px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
 }
 
 .photo img {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 0;
-  flex: 1;
-
+  height: auto;
   object-fit: contain;
-  object-position: center;
   background: #090909;
 }
 
-/* Large featured images */
-.photo:nth-child(6n + 1) {
-  grid-column: span 8;
-  grid-row: span 16;
-}
-
-/* Smaller companion images */
-.photo:nth-child(6n + 2) {
-  grid-column: span 4;
-  grid-row: span 12;
-}
-
-.photo:nth-child(6n + 3) {
-  grid-column: span 4;
-  grid-row: span 12;
-}
-
-/* Medium-width images */
-.photo:nth-child(6n + 4) {
-  grid-column: span 6;
-  grid-row: span 14;
-}
-
-.photo:nth-child(6n + 5) {
-  grid-column: span 6;
-  grid-row: span 14;
-}
-
-/* Wide feature to break up the rhythm */
-.photo:nth-child(6n) {
-  grid-column: span 12;
-  grid-row: span 16;
-}
-
 .caption {
-  flex: 0 0 auto;
-  padding: 10px 0 0;
-
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 12px;
 
+  width: 100%;
+  padding: 9px 0 0;
   color: #999;
   font-size: 10px;
   letter-spacing: 1px;
   line-height: 1.5;
   text-transform: uppercase;
 }
+
+.caption span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.caption span:last-child {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 
 
     .about {
@@ -170,13 +141,18 @@
     }
 
     
+
 /* TABLETS */
 @media (min-width: 601px) and (max-width: 900px) {
   .gallery {
+    column-count: 2;
+    column-gap: 18px;
     padding-left: 4%;
     padding-right: 4%;
-    grid-auto-rows: 28px;
-    gap: 12px 14px;
+  }
+
+  .photo {
+    margin-bottom: 24px;
   }
 }
 
@@ -200,21 +176,27 @@
   }
 
   .gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 22px;
+    column-count: 2;
+    column-gap: 12px;
     padding: 20px 5% 60px;
-    gap: 10px;
   }
 
-  .photo,
-  .photo:nth-child(6n + 1),
-  .photo:nth-child(6n + 2),
-  .photo:nth-child(6n + 3),
-  .photo:nth-child(6n + 4),
-  .photo:nth-child(6n + 5) {
-    grid-column: span 1;
-    grid-row: span 10;
+  .photo {
+    margin-bottom: 22px;
   }
+
+  .caption {
+    padding-top: 7px;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    gap: 6px;
+  }
+
+  .about {
+    padding: 35px 5% 50px;
+  }
+}
+
 
   /* Occasional featured image on mobile */
   .photo:nth-child(7n + 1) {
